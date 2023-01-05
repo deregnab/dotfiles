@@ -10,24 +10,48 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-" NERDtree on github
-Plugin 'scrooloose/nerdtree'
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+Plugin 'tpope/vim-fugitive'
+" plugin from http://vim-scripts.org/vim/scripts.html
+" Plugin 'L9'
+" Git plugin not hosted on GitHub
+" git repos on your local machine (i.e. when working on your own plugin)
+"Plugin 'file:///home/gmarik/path/to/plugin'
+" The sparkup vim script is in a subdirectory of this repo called vim.
+" Pass the path to set the runtimepath properly.
+"Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+" Install L9 and avoid a Naming conflict if you've already installed a
+" different version somewhere else.
+" Plugin 'ascenator/L9', {'name': 'newL9'}
 
-" scheme groovebox
-Plugin 'morhetz/gruvbox'
 
-" scheme jellybean
-Plugin 'nanotech/jellybeans.vim'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'itchyny/lightline.vim'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'preservim/nerdcommenter'
+Plugin 'preservim/nerdtree'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'frazrepo/vim-rainbow'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'bling/vim-bufferline'
+Plugin 'tpope/vim-eunuch'
 
-" scheme nord
-Plugin 'arcticicestudio/nord-vim'
-
-" autoclose parenthesis
-Plugin 'Townk/vim-autoclose'
-
+filetype plugin indent on
+" show existing tab with 4 spaces width
+set tabstop=4
+" " when indenting with '>', use 4 spaces width
+set shiftwidth=2
+" " On pressing tab, insert 4 spaces
+set expandtab
+set laststatus=2
+set paste
+set autoindent
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
+filetype plugin on
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
 "
@@ -39,18 +63,35 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
-"
-" Set number command at start up
-set number
 
-" Set tab character that appear 4-spaces-wide
-set tabstop=4
+map <C-o> :NERDTreeToggle<CR>
 
-" Set syntax highlighting on
-syntax on
+let mapleader=","
 
-" Fix scroll bug
-syn sync fromstart
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \ }
 
-" Set colorscheme
-colorscheme jellybeans
+let NERDTreeShowHidden=1
+let g:rainbow_active = 1
+let g:solarized_termcolors=256
+let g:bufferline_active_buffer_left = ''
+let g:bufferline_active_buffer_right = ''
+let g:bufferline_show_bufnr = 0
+let g:bufferline_fname_mod = ':~:.'
+let g:bufferline_pathshorten = 1
+
+
+
+
+syntax enable
+set background=dark
+colorscheme solarized
+
