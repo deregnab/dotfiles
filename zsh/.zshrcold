@@ -5,10 +5,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-zstyle :omz:plugins:ssh-agent agent-forwarding yes
-zstyle :omz:plugins:ssh-agent identities id_ed25519 
-zstyle :omz:plugins:ssh-agent quiet yes
-zstyle :omz:plugins:ssh-agent lazy yes
 # you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -89,8 +85,19 @@ zstyle :omz:plugins:ssh-agent lazy yes
 #	  man "$@"
 #	}
 
+ # plugins=(git
+#	pip 
+#	docker
+#	docker-compose
+#	kubectl
+ #   ssh-agent
+#	gpg-agent
+ # )
+  zstyle :omz:plugins:ssh-agent agent-forwarding on identities id_ed25519
+
+  
   export GPG_TTY=$(tty)
- # source $ZSH/oh-my-zsh.sh
+  #source $ZSH/oh-my-zsh.sh
 
   # User configuration
 
@@ -168,6 +175,12 @@ alias git-tree="git log --graph --abbrev-commit --decorate --format=format:'%C(b
 # alias rofi="rofi -modi window,drun,run -show drun -sidebar-mode -terminal termite -color-window '#000000, #000000, #000000' -color-normal '#000000, #b3e774, #000000, #b3e774, #000000' -color-active '#000000, #b3e774, #000000, #b3e774, #000000' -color-urgent '#000000, #b3e774, #000000, #b3e774, #000000'"
 
 
+
+eval $( dircolors -b $HOME/.dircolors )
+zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
+autoload -Uz compinit
+compinit
+
 export LESS="-R"
 
 export DOCKER_BUILDKIT=1
@@ -197,7 +210,23 @@ GITSTATUS_LOG_LEVEL=DEBUG
 #source /home/deregnab/.config/antigen/antigen.zsh
 source /home/deregnab/.tools/subrepo/.rc
 source ${ZDOTDIR:-~}/.antidote/antidote.zsh
+#antigen use oh-my-zsh
 
+#antigen bundle git
+#antigen bundle pip
+#antigen bundle lein
+
+#antigen bundle docker-compose
+#antigen bundle github
+#antigen bundle colorize
+#antigen bundle colored-man-pages
+#antigen bundle command-not-found
+#antigen bundle zsh-users/zsh-autosuggestions
+#antigen bundle zsh-users/zsh-syntax-highlighting
+
+# Tell Antigen that you're done.
+
+#antigen apply
 antidote load
 source ~/.zsh_plugins.zsh
 autoload -Uz promptinit && promptinit && prompt powerlevel10k 
